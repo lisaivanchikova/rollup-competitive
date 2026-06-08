@@ -351,6 +351,10 @@ footer .meta-bar{display:flex;justify-content:space-between;margin-top:20px;padd
 .vert.v-travel{background:rgba(20,184,166,0.14);color:#5eead4;border-color:rgba(20,184,166,0.45)}
 .vert.v-other{background:rgba(255,255,255,0.06);color:var(--text-2);border-color:rgba(255,255,255,0.18)}
 .vert-primary{box-shadow:0 0 0 2px rgba(251,191,36,0.18)}
+.vert.v-consult{background:rgba(99,102,241,0.14);color:#a5b4fc;border-color:rgba(99,102,241,0.45)}
+.vert.v-sw{background:rgba(6,182,212,0.14);color:#67e8f9;border-color:rgba(6,182,212,0.45)}
+.vert .sub{font-size:9px;font-weight:500;opacity:0.7;padding-left:4px;margin-left:1px;font-style:italic;letter-spacing:0}
+
 
 </style>
 </head>
@@ -1657,7 +1661,8 @@ verticals:"Acct, IT/MSP, legal, HOA, insurance, BPO, RCM", verticalsList:[
   {l:"Legal Services",c:"541110",k:"v-legal"},
   {l:"Healthcare RCM",c:"621399",k:"v-rcm"},
   {l:"Insurance Brokerage",c:"524210",k:"v-ins"},
-  {l:"BPO / Office Support",c:"561499",k:"v-bpo"}
+  {l:"BPO / Office Support",c:"561499",k:"v-bpo"},
+  {l:"Cross-vertical Software",c:"511210",k:"v-sw"}
   ], aiDepth:"Build AI-native NewCo first; FDE-style embed; ~10 portcos", acqCount:10, acqNotable:"Long Lake, Titan, Eudia, Crete, Accrual, HATCo (Summa Health $485M)",
 productivity:"Long Lake $100M EBITDA in <2yr; 30-70% workflow automation per portco",
 customers:"~10 NewCos in active operation", structure:"VC fund + incubated HoldCos + HATCo subsidiary", revModel:"NewCo equity → exit at PE/strategic",
@@ -1692,7 +1697,7 @@ sources:[["Long Lake — GC","https://www.generalcatalyst.com/companies/long-lak
 {name:"Shield Technology Partners", short:"SH", bucket:"b1", bucketLabel:"Direct", hq:"Boston area", year:2025, stage:"$100M Jun 2025 + $100M Feb 2026", stageWhen:"$200M total (Thrive)", founders:"Jake Sloane, Frank Zhang, Casey Botts (ZBS); CEO Jim Siders", pedigree:"Sloane/Zhang: ZBS Partners; Siders: 25+ yr MSP ops",
 raised:"$200M", val:"Undisclosed", arr:"1,500+ customers", backers:"Thrive Holdings (lead, both rounds), ZBS Partners, OpenAI data partnership", leadInvestor:"Thrive Holdings",
 verticals:"IT services / MSP", verticalsList:[
-  {l:"IT Services / MSP",c:"541512",k:"v-msp",p:1}
+  {l:"IT Services / MSP",c:"541512",k:"v-msp",p:1,s:"multi-specialty"}
   ], aiDepth:"Sentinel (ticket triage) + Spectre (auto-resolves ~60% tickets) — both proprietary in-house", acqCount:9, acqNotable:"9 partner MSPs in <12 mo; targets 14+ by Q1 2026",
 productivity:"Spectre auto-resolves ~60% of customer IT tickets; Sentinel handles triage",
 customers:"1,500+ customers across 9 acquired MSPs", structure:"Operating HoldCo (Thrive + ZBS); OpenAI data partnership", revModel:"MSP services + proprietary AI products (60-90% acquisition ownership)",
@@ -1703,7 +1708,7 @@ sources:[["BusinessWire Shield launch","https://www.businesswire.com/news/home/2
 {name:"Titan", short:"T", bucket:"b1", bucketLabel:"Direct", hq:"US", year:2024, stage:"Series A Aug 2025", stageWhen:"$74M GC-led", founders:"Saurin Patel, David Heffernan", pedigree:"Patel: founder background tech infra; Heffernan: ex-IT services exec",
 raised:"$74M", val:"Undisclosed", arr:"RFA: 400+ FS clients", backers:"General Catalyst (lead Series A)", leadInvestor:"General Catalyst",
 verticals:"IT/MSP (financial services focus)", verticalsList:[
-  {l:"IT Services / MSP",c:"541512",k:"v-msp",p:1}
+  {l:"IT Services / MSP",c:"541512",k:"v-msp",p:1,s:"FS focus"}
   ], aiDepth:"'Augmented AI' platform automates up to 30% of client IT workloads; targets 3× net margin", acqCount:1, acqNotable:"RFA (400+ outsourced FS clients across multiple countries)",
 productivity:"30% of client IT workloads automated; 3× net margin target on existing book",
 customers:"Via RFA: 400+ FS-focused outsourced clients globally", structure:"Operating Co + acquirer (GC Creation portfolio)", revModel:"IT services revenue + AI automation margin uplift",
@@ -1715,7 +1720,8 @@ sources:[["PR Newswire Titan $74M","https://www.prnewswire.com/news-releases/tit
 raised:"$500M deployment", val:"Undisclosed", arr:"$300M+ revenue · 900+ staff", backers:"Thrive Holdings, ZBS Partners", leadInvestor:"Thrive Holdings",
 verticals:"Accounting / CPA firms", verticalsList:[
   {l:"Accounting / Tax / Advisory",c:"541213",k:"v-acct",p:1},
-  {l:"Wealth Management",c:"523930",k:"v-wealth"}
+  {l:"Wealth Management",c:"523930",k:"v-wealth"},
+  {l:"Corporate Restructuring",c:"541611",k:"v-consult"}
   ], aiDepth:"OpenAI builds custom accounting models (data mapping, memo writing) via Thrive partnership", acqCount:20, acqNotable:"20+ CPA firms; 17 offices; expanding into Asia",
 productivity:"Goal: each firm 2-3× client capacity via AI w/o reducing staff",
 customers:"Acquired CPA firms' client portfolios (small biz, mid-market)", structure:"Operating HoldCo (Thrive-backed)", revModel:"CPA firm acquisition + AI shared services + cross-sell",
@@ -1769,8 +1775,8 @@ function renderAcq(d){
 function renderVerts(d){
   if(!d.verticalsList) return d.verticals||'—';
   return '<div class="verts">' + d.verticalsList.map(v =>
-    '<span class="vert ' + v.k + (v.p?' vert-primary':'') + '" title="NAICS ' + v.c + ' — primary vertical for this competitor">' +
-    v.l + '<span class="naics">' + v.c + '</span></span>'
+    '<span class="vert ' + v.k + (v.p?' vert-primary':'') + '" title="NAICS ' + v.c + (v.p?' — primary vertical for this competitor':'') + (v.s?' — '+v.s:'') + '">' +
+    v.l + (v.s?'<span class="sub">'+v.s+'</span>':'') + '<span class="naics">' + v.c + '</span></span>'
   ).join('') + '</div>';
 }
 
