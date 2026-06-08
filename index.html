@@ -136,7 +136,6 @@ h3{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
 #tbl col.c-vert{width:170px}
 #tbl col.c-acq{width:190px}
 #tbl col.c-prod{width:180px}
-#tbl col.c-close{width:60px}
 
 thead th{background:#eef4fb;text-align:left;padding:13px 14px;font-weight:700;font-size:9.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dark-2);border-bottom:2px solid rgba(10,14,26,0.1);border-right:1px solid rgba(10,14,26,0.05);position:sticky;top:0;z-index:10;white-space:nowrap}
 thead th:last-child{border-right:none}
@@ -449,8 +448,7 @@ footer .meta-bar{display:flex;justify-content:space-between;margin-top:20px;padd
 </div>
 <div class="sort-bar">
 <span class="label">Sort</span>
-<span class="s active" data-sort="closeness">Closeness ↓</span>
-<span class="s" data-sort="raised">Raised ↓</span>
+<span class="s active" data-sort="raised">Raised ↓</span>
 <span class="s" data-sort="year">Year ↓</span>
 <span class="s" data-sort="name">Name A→Z</span>
 </div>
@@ -460,7 +458,7 @@ footer .meta-bar{display:flex;justify-content:space-between;margin-top:20px;padd
 <div class="tbl-scroll">
 <table id="tbl">
 <colgroup>
-<col class="c-name"><col class="c-founders"><col class="c-bucket"><col class="c-hq"><col class="c-year"><col class="c-stage"><col class="c-raised"><col class="c-val"><col class="c-arr"><col class="c-backers"><col class="c-vert"><col class="c-acq"><col class="c-prod"><col class="c-close">
+<col class="c-name"><col class="c-founders"><col class="c-bucket"><col class="c-hq"><col class="c-year"><col class="c-stage"><col class="c-raised"><col class="c-val"><col class="c-arr"><col class="c-backers"><col class="c-vert"><col class="c-acq"><col class="c-prod">
 </colgroup>
 <thead><tr>
 <th class="th-name">Company</th>
@@ -476,7 +474,7 @@ footer .meta-bar{display:flex;justify-content:space-between;margin-top:20px;padd
 <th>Verticals</th>
 <th>Acquisitions</th>
 <th>AI productivity benchmark</th>
-<th class="center" title="Closeness to Bobroff Cap v3.0">↔ v3.0</th>
+
 </tr></thead>
 <tbody id="tbody"></tbody>
 </table>
@@ -1740,7 +1738,7 @@ sources:[["BusinessWire NMC Smarter Tech","https://www.businesswire.com/news/hom
 
 const US = {name:"Bobroff Cap (us)", short:"BC", mapX:96, mapY:18};
 
-let currentSort='closeness', searchTerm='';
+let currentSort='raised', searchTerm='';
 
 function makeNameCell(d){
   return `<div class="name-flex">
@@ -1799,7 +1797,7 @@ function render(){
     <td class="vertical">${renderVerts(d)}</td>
     <td class="acq">${renderAcq(d)}</td>
     <td class="productivity">${d.productivity||'—'}</td>
-    <td class="close"><span class="heat heat-${d.closeness}">${d.closeness}</span></td>
+    
   </tr>`;
   }).join('');
 
